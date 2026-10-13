@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>मीमशाला · MemeShala</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+2:wght@500;700;800&family=Noto+Sans+Devanagari:wght@700&display=swap">
+<style>
+:root{--bg:#fff7ec;--bg2:#ffe3f1;--card:#ffffffcc;--ink:#26122e;--mut:#7a6585;--line:#26122e18;--a:#ff3d81;--b:#ffb100;--c:#6a4cff;--chip:#fff;--shadow:0 20px 60px #6a4cff22;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150b21;--bg2:#2a0f3d;--card:#241336cc;--ink:#fff3fb;--mut:#b9a3c9;--line:#ffffff1c;--chip:#2f1b45;--shadow:0 20px 60px #0008}}
+:root[data-theme="dark"]{--bg:#150b21;--bg2:#2a0f3d;--card:#241336cc;--ink:#fff3fb;--mut:#b9a3c9;--line:#ffffff1c;--chip:#2f1b45;--shadow:0 20px 60px #0008}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Baloo 2','Noto Sans Devanagari',system-ui,sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 10% -10%,var(--bg2),transparent),radial-gradient(800px 500px at 100% 0,#ffb10033,transparent),var(--bg);overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 18px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo i{font-style:normal;font-size:30px;background:linear-gradient(135deg,var(--a),var(--b));width:54px;height:54px;border-radius:16px;display:grid;place-items:center;transform:rotate(-8deg);box-shadow:0 8px 24px #ff3d8155}
+.logo b{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.logo small{display:block;color:var(--mut);font-weight:500;font-size:13px}
+.theme{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:99px;padding:8px 14px;font:inherit;cursor:pointer}
+.hero{text-align:center;margin:30px 0 26px}
+.hero h1{font-size:clamp(30px,6vw,58px);line-height:1.02;margin:0;font-weight:800;letter-spacing:-1.5px}
+.hero h1 span{background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin:10px auto 0;max-width:620px;font-size:17px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:22px;align-items:start}
+@media(max-width:880px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:var(--shadow)}
+label.t{display:block;font-weight:700;margin:16px 0 8px;font-size:15px}
+label.t:first-child{margin-top:0}
+label.t em{font-style:normal;color:var(--mut);font-weight:500}
+textarea{width:100%;min-height:112px;resize:vertical;border-radius:18px;border:2px solid var(--line);background:var(--chip);color:var(--ink);padding:14px 16px;font:500 17px 'Baloo 2','Noto Sans Devanagari',sans-serif;outline:none;transition:.2s}
+textarea:focus{border-color:var(--a);box-shadow:0 0 0 5px #ff3d8120}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--chip);color:var(--ink);border-radius:99px;padding:7px 14px;font:600 14px 'Baloo 2','Noto Sans Devanagari',sans-serif;cursor:pointer;transition:.15s}
+.chip:hover{transform:translateY(-2px)}
+.chip.on{background:linear-gradient(135deg,var(--a),var(--c));color:#fff;border-color:transparent;box-shadow:0 6px 18px #ff3d8140}
+.drop{display:flex;align-items:center;gap:14px;border:2px dashed var(--line);border-radius:18px;padding:14px;cursor:pointer;background:var(--chip);transition:.2s}
+.drop:hover,.drop.over{border-color:var(--c);transform:scale(1.01)}
+.drop img{width:62px;height:62px;border-radius:12px;object-fit:cover;display:none}
+.drop span{font-size:14px;color:var(--mut);line-height:1.3}
+.drop b{color:var(--ink);display:block;font-size:15px}
+.x{margin-left:auto;display:none;border:0;background:var(--a);color:#fff;border-radius:99px;width:30px;height:30px;cursor:pointer}
+.go{width:100%;margin-top:20px;border:0;border-radius:20px;padding:16px;font:800 20px 'Baloo 2','Noto Sans Devanagari',sans-serif;color:#fff;cursor:pointer;background:linear-gradient(110deg,var(--a),var(--b) 55%,var(--c));background-size:200% 100%;box-shadow:0 14px 34px #ff3d8150;transition:.25s}
+.go:hover{background-position:100% 0;transform:translateY(-2px) scale(1.01)}
+.go:disabled{opacity:.7;cursor:wait;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(.985)}}
+.stage{display:flex;flex-direction:column;gap:14px}
+.frame{border-radius:22px;overflow:hidden;background:repeating-conic-gradient(var(--line) 0 25%,transparent 0 50%) 0 0/24px 24px;border:1px solid var(--line);min-height:260px;display:grid;place-items:center;position:relative}
+canvas{display:none;width:100%;height:auto;max-width:100%}
+.empty{text-align:center;padding:40px 20px;color:var(--mut)}
+.empty big{display:block;font-size:64px;animation:fl 3s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-10px) rotate(6deg)}}
+.note{font-size:15px;background:var(--chip);border:1px dashed var(--line);border-radius:16px;padding:10px 14px;display:none}
+.acts{display:none;gap:8px;flex-wrap:wrap}
+.acts button{flex:1;min-width:120px;border:0;border-radius:16px;padding:12px;font:700 15px 'Baloo 2','Noto Sans Devanagari',sans-serif;cursor:pointer;color:var(--ink);background:var(--chip);border:1.5px solid var(--line);transition:.15s}
+.acts button:hover{transform:translateY(-2px)}
+.acts .pri{background:linear-gradient(135deg,var(--c),var(--a));color:#fff;border-color:transparent}
+.hist{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.hist img{height:70px;border-radius:12px;border:2px solid var(--line);cursor:pointer;flex:none}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:99px;font-weight:700;transition:.3s;z-index:9;max-width:90vw}
+.toast.show{transform:translate(-50%,0)}
+footer{text-align:center;color:var(--mut);margin-top:34px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div class="logo"><i>🤣</i><div><b>मीमशाला</b><small>MemeShala · मीम की पाठशाला</small></div></div>
+ <button class="theme" id="theme">🌓 Theme</button>
+</header>
+<section class="hero">
+ <h1>Context दो, <span>मीम लो.</span></h1>
+ <p>कोई सिचुएशन, फोटो या वीडियो डालो — हम उसे हिंदी, English या Hinglish में फुल-फॉर्म मीम बना देंगे। Download-ready PNG!</p>
+</section>
+<div class="grid">
+ <div class="card">
+  <label class="t">📝 क्या हुआ? <em>What's the situation?</em></label>
+  <textarea id="ctx" placeholder="जैसे: सुबह 5 बजे उठकर पढ़ने का प्लान बनाया, पर अलार्म बंद करके सो गया… / My code works but I don't know why"></textarea>
+  <div class="row" style="margin-top:10px" id="ideas"></div>
+
+  <label class="t">🖼️ फोटो / वीडियो <em>(optional)</em></label>
+  <label class="drop" id="drop">
+   <img id="pv" alt=""><span><b id="dt">Image या video यहाँ छोड़ो</b>Drop or tap to upload · video से एक frame लिया जाएगा</span>
+   <button class="x" id="rm" type="button">✕</button>
+   <input type="file" id="file" accept="image/*,video/*" hidden>
+  </label>
+
+  <label class="t">🗣️ भाषा <em>Language</em></label>
+  <div class="row" data-g="lang">
+   <button class="chip" data-v="hi">हिन्दी</button><button class="chip on" data-v="mix">Hinglish मिक्स</button><button class="chip" data-v="en">English</button>
+  </div>
+  <label class="t">🧠 इंजन <em>Engine</em></label>
+  <div class="row" data-g="mode">
+   <button class="chip on" data-v="auto">✨ Auto</button><button class="chip" data-v="fetch">🔎 Classic format रीमिक्स</button><button class="chip" data-v="create">🎨 Original बनाओ</button>
+  </div>
+  <label class="t">🌶️ तड़का <em>Spice level</em></label>
+  <div class="row" data-g="spice">
+   <button class="chip" data-v="halka">😇 हल्का</button><button class="chip on" data-v="teekha">😏 तीखा</button><button class="chip" data-v="mirchi">🔥 मिर्ची-बम</button>
+  </div>
+  <button class="go" id="go">🚀 मीम बनाओ · Generate</button>
+ </div>
+
+ <div class="card stage">
+  <div class="frame" id="frame">
+   <div class="empty" id="empty"><big>🤡</big><b>तुम्हारा मीम यहाँ आएगा</b><br>Your meme will appear here</div>
+   <canvas id="cv" width="1080" height="1080"></canvas>
+  </div>
+  <div class="note" id="note"></div>
+  <div class="acts" id="acts">
+   <button class="pri" id="dl">⬇️ PNG Download</button>
+   <button id="again">🔁 और एक</button>
+   <button id="tr">🌐 भाषा पलटो</button>
+   <button id="cp">📋 Caption</button>
+  </div>
+  <div class="hist" id="hist"></div>
+ </div>
+</div>
+<footer>Made with ❤️ & chai · मीमशाला — हँसो, शेयर करो, repeat.</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const S={lang:'mix',mode:'auto',spice:'teekha',bg:null,blob:null,cur:null,hist:[]};
+const FORMATS={classic:2,drake:2,brain:4,buttons:3,distracted:3,sign:1};
+const IDEAS=['सुबह 5 बजे उठने का प्लान','Parents asking about salary','Exam से एक रात पहले','Monday morning','WhatsApp group "good morning" फॉरवर्ड','Code चल गया, पता नहीं क्यों'];
+const FB=(f,fn)=>fn&&fn();
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2600)}
+$('#theme').onclick=()=>{const r=document.documentElement;const d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark'};
+IDEAS.forEach(t=>{const b=document.createElement('button');b.className='chip';b.textContent=t;b.onclick=()=>{$('#ctx').value=t;$('#ctx').focus()};$('#ideas').appendChild(b)});
+document.querySelectorAll('[data-g]').forEach(g=>g.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;g.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');S[g.dataset.g]=b.dataset.v});
+
+/* ---------- media input ---------- */
+const drop=$('#drop');
+['dragover','dragenter'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0])});
+$('#file').onchange=e=>e.target.files[0]&&loadFile(e.target.files[0]);
+$('#rm').onclick=e=>{e.preventDefault();e.stopPropagation();S.bg=null;S.blob=null;$('#pv').style.display='none';$('#rm').style.display='none';$('#dt').textContent='Image या video यहाँ छोड़ो';$('#file').value=''};
+function setBg(url){const im=new Image();im.onload=()=>{S.bg=im;const c=document.createElement('canvas');const k=Math.min(1,800/im.width);c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);c.toBlob(b=>S.blob=b,'image/jpeg',.85);$('#pv').src=url;$('#pv').style.display='block';$('#rm').style.display='block';$('#dt').textContent='Media ready ✅';};im.src=url}
+function loadFile(f){
+ if(f.type.startsWith('image/')){const r=new FileReader();r.onload=()=>setBg(r.result);r.readAsDataURL(f)}
+ else if(f.type.startsWith('video/')){
+  const v=document.createElement('video');v.muted=true;v.playsInline=true;v.src=URL.createObjectURL(f);
+  v.onerror=()=>toast('Video पढ़ नहीं पाए — image try करो 🙏');
+  v.onloadeddata=()=>{v.currentTime=Math.min(1,(v.duration||2)/2)};
+  v.onseeked=()=>{const c=document.createElement('canvas');const k=Math.min(1,900/v.videoWidth);c.width=v.videoWidth*k;c.height=v.videoHeight*k;c.getContext('2d').drawImage(v,0,0,c.width,c.height);setBg(c.toDataURL('image/jpeg',.88));toast('🎞️ Video से frame निकाल लिया')};
+ }
+}
+
+/* ---------- AI engine ---------- */
+const LN={hi:'pure Devanagari Hindi (no English words)',en:'English',mix:'Hinglish: Hindi in Devanagari mixed naturally with English words in Latin script, like Indian social media'};
+const SP={halka:'light and wholesome',teekha:'sharp, sarcastic and relatable',mirchi:'savage, absurd, roast-level (but never hateful)'};
+async function ask(extra){
+ const sample=await claude.use('sample');
+ if(!sample)return null;
+ const p=`You are MemeShala, India's funniest meme writer. Turn the user's context into ONE meme.
+Context: "${$('#ctx').value.trim()||'(none — infer from the image)'}"
+Language of captions: ${LN[S.lang]}.
+Humour: ${SP[S.spice]}. Use desi references (chai, parents, exams, traffic, cricket, WhatsApp, Bollywood dialogues) only when they fit. Never target religion, caste, gender or nationality.
+Engine: ${S.mode==='fetch'?'recreate the joke structure of the best-known classic meme format that fits this context':S.mode==='create'?'invent a fresh original angle, not a cliché':'pick whatever is funniest'}.
+Choose format and caption counts exactly: classic=2 (top,bottom) | drake=2 (reject,approve) | brain=4 (smallest brain to galaxy brain, escalating) | buttons=3 (button1,button2,bottom reaction) | distracted=3 (me, tempting new thing, neglected old thing) | sign=1 (bold hot-take on a sign).
+Keep each caption under 12 words, punchy, with a twist ending. Add 1 emoji at most per caption.${S.blob?' An image is attached: react to what is actually in it, and prefer format classic.':''}
+${extra||''}
+Reply with ONLY JSON: {"format":"...","captions":["..."],"note":"one-line why this is funny, in the chosen language"}`;
+ const o={modelTier:'default',cache:false};
+ try{const l=await sample.limits();if(S.blob&&l&&l.images)o.images=[S.blob]}catch(e){}
+ const r=await sample(p,o);
+ const m=(r.text||'').match(/\{[\s\S]*\}/);if(!m)throw new Error('bad');
+ const j=JSON.parse(m[0]);if(!FORMATS[j.format])j.format='classic';
+ j.captions=(j.captions||[]).map(String);while(j.captions.length<FORMATS[j.format])j.captions.push('…');
+ return j;
+}
+function offline(){const t=$('#ctx').value.trim()||'जब सब कुछ plan के हिसाब से हो';return{format:'classic',captions:[t.slice(0,60),S.lang==='en'?'Me: this is fine 🔥':'मैं: सब ठीक है 🔥'],note:'AI offline है — basic मीम बना दिया।'}}
+
+/* ---------- canvas renderer ---------- */
+const FF=(s)=>`700 ${s}px 'Anton','Noto Sans Devanagari',Impact,sans-serif`;
+const EM=s=>`${s}px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif`;
+const cv=$('#cv'),x=cv.getContext('2d');
+function wrap(t,w){const out=[];let l='';for(const word of String(t).split(/\s+/)){const n=l?l+' '+word:word;if(x.measureText(n).width>w&&l){out.push(l);l=word}else l=n}if(l)out.push(l);return out}
+function txt(t,bx,by,bw,bh,o={}){let s=o.max||110,L;for(;s>=22;s-=3){x.font=FF(s);L=wrap(t,bw);if(L.length*s*1.2<=bh)break}
+ x.font=FF(s);x.textAlign='center';x.textBaseline='middle';x.lineJoin='round';const lh=s*1.2,y0=by+bh/2-(L.length-1)*lh/2;
+ L.forEach((l,i)=>{if(o.stroke){x.lineWidth=s/6;x.strokeStyle=o.stroke;x.strokeText(l,bx+bw/2,y0+i*lh)}x.fillStyle=o.color||'#111';x.fillText(l,bx+bw/2,y0+i*lh)})}
+const emo=(e,cx,cy,s)=>{x.font=EM(s);x.textAlign='center';x.textBaseline='middle';x.fillStyle='#000';x.fillText(e,cx,cy)};
+const rr=(a,b,w,h,r,f)=>{x.beginPath();x.roundRect(a,b,w,h,r);x.fillStyle=f;x.fill()};
+const grad=(h,c1,c2)=>{const g=x.createLinearGradient(0,0,1080,h);g.addColorStop(0,c1);g.addColorStop(1,c2);return g};
+const R={
+ classic(c){let H=1080;if(S.bg)H=Math.max(720,Math.min(1440,Math.round(1080*S.bg.height/S.bg.width)));cv.height=H;
+  if(S.bg){const k=Math.max(1080/S.bg.width,H/S.bg.height);x.drawImage(S.bg,(1080-S.bg.width*k)/2,(H-S.bg.height*k)/2,S.bg.width*k,S.bg.height*k)}
+  else{x.fillStyle=grad(H,'#ff3d81','#6a4cff');x.fillRect(0,0,1080,H);emo(['🤡','💀','😭','🫠','🙃'][c[0].length%5],540,H/2,420);}
+  txt(c[0],30,16,1020,H*.3,{color:'#fff',stroke:'#000'});txt(c[1],30,H*.7-16,1020,H*.3,{color:'#fff',stroke:'#000'})},
+ drake(c){cv.height=1080;[['#ffd166','🙅‍♂️','#fff'],['#7ee0a1','😎👉','#fff']].forEach((r,i)=>{x.fillStyle=r[0];x.fillRect(0,i*540,380,540);x.fillStyle=r[2];x.fillRect(380,i*540,700,540);emo(r[1],190,i*540+270,i?150:230);txt(c[i],410,i*540+20,640,500,{color:'#1b1030',max:96})});x.fillStyle='#1b1030';x.fillRect(0,536,1080,8);x.fillRect(376,0,8,1080)},
+ brain(c){cv.height=1080;const E=['🙂','😏','🤓','🧠'],C=['#ddd','#cde7ff','#b9a7ff','#ff3d81'];for(let i=0;i<4;i++){const y=i*270;x.fillStyle='#fff';x.fillRect(0,y,700,270);const g=x.createRadialGradient(890,y+135,10,890,y+135,200);g.addColorStop(0,i==3?'#fff6a8':'#ffffff');g.addColorStop(1,C[i]);x.fillStyle=g;x.fillRect(700,y,380,270);emo(E[i],890,y+135,90+i*28);if(i==3)emo('✨',1010,y+50,60);txt(c[i],26,y+8,650,254,{color:'#1b1030',max:78});x.fillStyle='#1b1030';x.fillRect(0,y+266,1080,8)}},
+ buttons(c){cv.height=1080;x.fillStyle=grad(1080,'#d8ecff','#fbe3ff');x.fillRect(0,0,1080,1080);[60,560].forEach((a,i)=>{rr(a,60,460,320,36,'#fff');rr(a,330,460,50,25,'#e63946');x.save();x.translate(a+230,220);txt(c[i],-200,-150,400,240,{color:'#1b1030',max:70});x.restore()});emo('😰',540,620,300);emo('💦',700,520,110);rr(0,830,1080,250,0,'#1b1030');txt(c[2],40,840,1000,230,{color:'#fff',max:84})},
+ distracted(c){cv.height=1080;x.fillStyle=grad(1080,'#7cc7ff','#ffe7a3');x.fillRect(0,0,1080,1080);x.fillStyle='#6b6b78';x.fillRect(0,860,1080,220);[['💃',180,c[1]],['🙋‍♂️',540,c[0]],['😒',900,c[2]]].forEach(([e,cx,t])=>{emo(e,cx,640,230);rr(cx-165,90,330,300,28,'#ffffffee');txt(t,cx-150,100,300,280,{color:'#1b1030',max:62})});x.font=EM(80);emo('👀',360,500,70);txt('मैं / Me',380,930,320,100,{color:'#fff',max:60})},
+ sign(c){cv.height=1080;x.fillStyle=grad(1080,'#ff9a5a','#ff3d81');x.fillRect(0,0,1080,1080);emo('☀️',900,130,150);rr(150,90,780,560,26,'#8a5a2b');rr(180,120,720,500,14,'#fff');txt(c[0],200,135,680,470,{color:'#1b1030',max:104});x.fillStyle='#5b3a1a';x.fillRect(0,860,1080,220);emo('🧔',250,780,230);emo('☕',470,830,120);rr(0,900,1080,180,0,'#1b1030');txt(S.lang==='en'?'Change my mind.':S.lang==='hi'?'है दम तो गलत साबित करो।':'Change my mind, भाई।',40,905,1000,170,{color:'#ffd166',max:80})}
+};
+async function fonts(){try{await Promise.race([Promise.all([document.fonts.load("700 40px Anton"),document.fonts.load("700 40px 'Noto Sans Devanagari'"),document.fonts.load("700 40px 'Noto Sans Devanagari'","मीम")]),new Promise(r=>setTimeout(r,2500))])}catch(e){}}
+async function render(m){await fonts();x.clearRect(0,0,1080,1440);(R[m.format]||R.classic)(m.captions);
+ const w=cv.height;x.font=FF(26);x.textAlign='right';x.textBaseline='bottom';x.fillStyle='#ffffffcc';x.strokeStyle='#0008';x.lineWidth=5;x.strokeText('मीमशाला',1060,w-12);x.fillText('मीमशाला',1060,w-12);
+ cv.style.display='block';$('#empty').style.display='none';$('#acts').style.display='flex';
+ const n=$('#note');n.style.display=m.note?'block':'none';n.textContent=m.note?'💡 '+m.note:'';S.cur=m}
+function pushHist(m){S.hist.unshift({m,u:cv.toDataURL('image/jpeg',.4),bg:S.bg});S.hist=S.hist.slice(0,8);const h=$('#hist');h.innerHTML='';S.hist.forEach(e=>{const i=new Image();i.src=e.u;i.title='Open';i.onclick=()=>{S.bg=e.bg;render(e.m)};h.appendChild(i)})}
+
+/* ---------- actions ---------- */
+async function gen(extra,btn){
+ if(!$('#ctx').value.trim()&&!S.blob){toast('पहले कुछ context तो दो 😅');$('#ctx').focus();return}
+ const g=$('#go');g.disabled=true;g.textContent='🍳 मीम पक रहा है…';
+ try{let m=await ask(extra);if(!m){m=offline();toast('AI उपलब्ध नहीं — basic मीम')}await render(m);pushHist(m)}
+ catch(e){const c=e&&e.code;if(c==='rate_limited')toast('थोड़ा रुको, फिर try करो ⏳');else if(c==='not_granted')toast('AI की permission चाहिए 🙏');else{toast('हाय! गड़बड़ — दोबारा try करो');}}
+ g.disabled=false;g.textContent='🚀 मीम बनाओ · Generate'}
+$('#go').onclick=()=>gen();
+$('#again').onclick=()=>gen(S.cur?`The user wants a COMPLETELY different joke and format than this one: ${JSON.stringify(S.cur.captions)}`:'');
+$('#tr').onclick=()=>{if(!S.cur)return;const to=S.lang==='en'?'mix':S.lang==='hi'?'en':'hi';S.lang=to;document.querySelectorAll('[data-g=lang] .chip').forEach(c=>c.classList.toggle('on',c.dataset.v===to));gen(`Keep the SAME format (${S.cur.format}) and same joke; just re-write these captions in the new language, with equal punch (not word-for-word): ${JSON.stringify(S.cur.captions)}`)};
+$('#cp').onclick=async()=>{if(!S.cur)return;try{await navigator.clipboard.writeText(S.cur.captions.join('\n'));toast('Caption कॉपी हो गया 📋')}catch(e){toast('Copy नहीं हुआ — select करके कॉपी करो')}};
+$('#dl').onclick=async()=>{const d=await claude.use('downloads');cv.toBlob(async b=>{if(!d){toast('इमेज को long-press करके save करो 📲');return}
+ try{await d.save({filename:'memeshala-'+Date.now()+'.png',data:b});toast('Saved! अब शेयर करो 🎉')}catch(e){if(!e||e.code!=='declined')toast('Download नहीं हो पाया')}},'image/png')};
+</script>
+</body>
+</html>
